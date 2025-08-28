@@ -1,0 +1,1 @@
+web: python manage.py migrate && gunicorn ethioflavor_project.wsgi

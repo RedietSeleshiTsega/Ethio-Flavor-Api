@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -25,7 +27,11 @@ SECRET_KEY = 'django-insecure-b_1tznk3qorsjiv4rzpbeh+2u(38zjt=s25f=lhuadygptfj34
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'web-production-fa5f2.up.railway.app',
+    '127.0.0.1',      
+    'localhost',       
+]
 
 
 # Application definition
@@ -134,7 +140,21 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
-    
+    'DEFAULT_FILTER_BACKENDS': [  # Add this section
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+
+
+
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-fa5f2.up.railway.app',
+]

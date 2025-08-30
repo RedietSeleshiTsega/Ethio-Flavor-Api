@@ -1,11 +1,14 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import RecipeViewSet, ReviewViewSet, CategoryListView, IngredientListView, CulturalTagListView
+
+router = DefaultRouter()
+router.register(r'recipes', RecipeViewSet, basename="recipe")
+router.register(r'reviews', ReviewViewSet, basename="review")
 
 urlpatterns = [
-    path('', views.RecipeListCreateView.as_view(), name='recipe-list-create'),
-    path('<int:pk>/', views.RecipeDetailView.as_view(), name='recipe-detail'),
-    path('categories/', views.CategoryListView.as_view(), name='category-list'),
-    path('ingredients/', views.IngredientListView.as_view(), name='ingredient-list'),
-    path('cultural-tags/', views.CulturalTagListView.as_view(), name='cultural-tag-list'),
-
+    path('', include(router.urls)),
+    path('categories/', CategoryListView.as_view(), name='category-list'),
+    path('ingredients/', IngredientListView.as_view(), name='ingredient-list'),
+    path('cultural-tags/', CulturalTagListView.as_view(), name='cultural-tag-list'),
 ]

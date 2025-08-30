@@ -171,7 +171,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # For production, you might want to use cloud storage
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-# Add this to your settings.py
-AUTH_USER_MODEL = 'users.User'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
